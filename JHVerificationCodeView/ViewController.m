@@ -22,7 +22,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.title = @"单个输入框的验证码";
+    self.title = @"验证码输入框";
     
     [self jhSetupViews];
     
@@ -30,7 +30,12 @@
 
 - (void)jhSetupViews
 {
-    JHVCConfig *config = [[JHVCConfig alloc] init];
+    UILabel *label = [[UILabel alloc] init];
+    label.frame = CGRectMake(0, 150, kScreenWidth, 30);
+    label.textAlignment = 1;
+    [self.view addSubview:label];
+    
+    JHVCConfig *config     = [[JHVCConfig alloc] init];
     config.inputBoxNumber  = 6; 
     config.inputBoxSpacing = 5;
     config.inputBoxWidth   = 33;
@@ -42,9 +47,15 @@
     config.textColor       = [UIColor brownColor];
     
     [self.view addSubview:({
+        JHVerificationCodeView *codeView =
         [[JHVerificationCodeView alloc] initWithFrame:CGRectMake(10, 100, kScreenWidth-20, 30)
                                                config:config];
+        codeView.finishBlock = ^(NSString *code) {
+            label.text = code;
+        };
+        codeView;
     })];
+    
 }
 
 - (void)didReceiveMemoryWarning {
