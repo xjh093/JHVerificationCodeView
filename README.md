@@ -1,5 +1,7 @@
 # JHVerificationCodeView
-单个的验证码输入框
+单个的验证码输入框 & A single authentication code input box
+
+输入框的配置：& The input field configuration:
 
 ```
 @interface JHVCConfig : NSObject
@@ -26,4 +28,28 @@
 ///颜色
 @property (strong,  nonatomic) UIColor          *textColor;
 @end
+```
+
+简单地使用：& Simple to use:
+```
+    JHVCConfig *config     = [[JHVCConfig alloc] init];
+    config.inputBoxNumber  = 6; 
+    config.inputBoxSpacing = 5;
+    config.inputBoxWidth   = 33;
+    config.inputBoxHeight  = 28;
+    config.tintColor       = [UIColor blackColor];
+    config.secureTextEntry = YES;
+    config.inputBoxColor   = [UIColor brownColor];
+    config.font            = [UIFont boldSystemFontOfSize:16];
+    config.textColor       = [UIColor brownColor];
+    
+    [self.view addSubview:({
+        JHVerificationCodeView *codeView =
+        [[JHVerificationCodeView alloc] initWithFrame:CGRectMake(10, 100, kScreenWidth-20, 30)
+                                               config:config];
+        codeView.finishBlock = ^(NSString *code) {
+            label.text = code;
+        };
+        codeView;
+    })];
 ```
