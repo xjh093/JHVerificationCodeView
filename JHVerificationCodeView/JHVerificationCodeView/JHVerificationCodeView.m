@@ -99,6 +99,11 @@
         textField.delegate = self;
         [self addSubview:textField];
     }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UITextField *xxTextField = self.subviews[0];
+        [xxTextField becomeFirstResponder];
+    });
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
@@ -109,15 +114,18 @@
     
     //输入后光标往后移
     if (textField.text.length == 0 && string.length == 1) {
-        if (textField.tag + 1 < self.subviews.count) {
-            UITextField *xxTextField = self.subviews[textField.tag+1];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [xxTextField becomeFirstResponder];
-            });
+        for (NSInteger i = textField.tag + 1; i < self.subviews.count; ++i) {
+            UITextField *xxTextField = self.subviews[i];
+            if (xxTextField.text.length == 0) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [xxTextField becomeFirstResponder];
+                });
+                break;
+            }
         }
     }
     //删除后光标往前移
-    else if (textField.text.length <= 1 && string.length == 0){
+    else if (textField.text.length == 0 && string.length == 0){
         BOOL flag = NO;
         if (textField.tag + 1 < self.subviews.count) { //后一个输入框
             UITextField *xxTextField = self.subviews[textField.tag+1];
@@ -129,23 +137,30 @@
         }
         
         //如果它后面的输入框有数字，则不前移
+        //如果要前移，则设置 flag = YES;
+        flag = YES;
         
         //前移情况
         if (textField.tag - 1 >= 0 && flag) {
             UITextField *xxTextField = self.subviews[textField.tag-1];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [xxTextField becomeFirstResponder];
+                xxTextField.text = @"";
             });
         }
     }else if (textField.text.length > 0 && string.length == 1){
         //超过1位，截取最新的，光标后移
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             textField.text = string;
-            if (textField.tag + 1 < self.subviews.count) {
-                UITextField *xxTextField = self.subviews[textField.tag+1];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [xxTextField becomeFirstResponder];
-                });
+            
+            for (NSInteger i = textField.tag + 1; i < self.subviews.count; ++i) {
+                UITextField *xxTextField = self.subviews[i];
+                if (xxTextField.text.length == 0) {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [xxTextField becomeFirstResponder];
+                    });
+                    break;
+                }
             }
         });
     }
