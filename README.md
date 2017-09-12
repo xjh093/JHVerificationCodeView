@@ -53,3 +53,5 @@
         codeView;
     })];
 ```
+
+![image](https://github.com/xjh093/JHVerificationCodeView/blob/master/123.png)
