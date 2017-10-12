@@ -10,9 +10,9 @@
 
 @implementation JHVCConfig @end
 
-@interface JHVerificationCodeView()<UITextFieldDelegate>
+@interface JHVerificationCodeView()
 @property (strong,  nonatomic) JHVCConfig               *config;
-@property (strong,  nonatomic) NSMutableDictionary      *textFieldDic;
+@property (strong,  nonatomic) UITextView               *textView;
 @end
 
 @implementation JHVerificationCodeView
@@ -33,8 +33,6 @@
         _config.inputBoxWidth > frame.size.width) {
         return;
     }
-    
-    _textFieldDic = @{}.mutableCopy;
     
     //优先考虑 inputBoxWidth
     CGFloat inputBoxSpacing = 5;
@@ -96,101 +94,80 @@
         }
         
         textField.tag = i;
-        textField.delegate = self;
+        textField.userInteractionEnabled = NO;
         [self addSubview:textField];
     }
     
+    [self addGestureRecognizer:({
+        [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(xx_tap)];
+    })];
+    
+    _textView = [[UITextView alloc] init];
+    _textView.frame = CGRectMake(0, CGRectGetHeight(frame), 0, 0);
+    [self addSubview:_textView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChange) name:UITextViewTextDidChangeNotification object:nil];
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        UITextField *xxTextField = self.subviews[0];
-        [xxTextField becomeFirstResponder];
+        [_textView becomeFirstResponder];
     });
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    
-    NSLog(@"textField.text:%@,string:%@",textField.text,string);
-    
-    [_textFieldDic setObject:string forKey:@(textField.tag)];
-    
-    //输入后光标往后移
-    if (textField.text.length == 0 && string.length == 1) {
-        for (NSInteger i = textField.tag + 1; i < self.subviews.count; ++i) {
-            UITextField *xxTextField = self.subviews[i];
-            if (xxTextField.text.length == 0) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [xxTextField becomeFirstResponder];
-                });
-                break;
-            }
+- (void)xx_tap{
+    [_textView becomeFirstResponder];
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)textChange
+{
+    //去空格
+    NSString *text = [_textView.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    //保留数字和字母
+    NSMutableString *mstr = @"".mutableCopy;
+    for (int i = 0; i < text.length; ++i) {
+        unichar c = [text characterAtIndex:i];
+        if ((c >= '0' && c <= '9') ||
+            (c >= 'A' && c <= 'Z') ||
+            (c >= 'a' && c <= 'z')) {
+            [mstr appendFormat:@"%c",c];
         }
     }
-    //删除后光标往前移
-    else if (textField.text.length == 0 && string.length == 0){
-        BOOL flag = NO;
-        if (textField.tag + 1 < self.subviews.count) { //后一个输入框
-            UITextField *xxTextField = self.subviews[textField.tag+1];
-            if (xxTextField.text.length == 0) { //没有内容
-                flag = YES;
-            }
-        }else{ //是最后一个输入框
-            flag = YES;
-        }
-        
-        //如果它后面的输入框有数字，则不前移
-        //如果要前移，则设置 flag = YES;
-        flag = YES;
-        
-        //前移情况
-        if (textField.tag - 1 >= 0 && flag) {
-            UITextField *xxTextField = self.subviews[textField.tag-1];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [xxTextField becomeFirstResponder];
-                xxTextField.text = @"";
-            });
-        }
-    }else if (textField.text.length > 0 && string.length == 1){
-        //超过1位，截取最新的，光标后移
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            textField.text = string;
-            
-            for (NSInteger i = textField.tag + 1; i < self.subviews.count; ++i) {
-                UITextField *xxTextField = self.subviews[i];
-                if (xxTextField.text.length == 0) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [xxTextField becomeFirstResponder];
-                    });
-                    break;
-                }
-            }
-        });
+    
+    text = mstr;
+    if (text.length > 6) {
+        text = [text substringToIndex:6];
+    }
+    _textView.text = text;
+    
+    NSLog(@"%@",text);
+    
+    for (int i = 0; i < 6; ++i) {
+        UITextField *textField = self.subviews[i];
+        textField.text = @"";
     }
     
-    NSArray *array = _textFieldDic.allValues;
-    if (array.count < _config.inputBoxNumber || [array containsObject:@""]) {
-        NSLog(@"NO");
-    }else{
-        NSLog(@"YES");
+    for (int i = 0; i < text.length; ++i) {
+        unichar c = [text characterAtIndex:i];
+        UITextField *textField = self.subviews[i];
+        textField.text = [NSString stringWithFormat:@"%c",c];
+    }
+    
+    if (text.length == 6) {
         [self xx_finish];
     }
-    
-    return YES;
 }
 
 - (void)xx_finish
 {
-    NSMutableString *mstr = @"".mutableCopy;
-    for (int i = 0; i < _config.inputBoxNumber; ++i) {
-        [mstr appendString:_textFieldDic[@(i)]];
-    }
-    
     if (_finishBlock) {
-        _finishBlock(mstr);
+        _finishBlock(_textView.text);
     }
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self endEditing:YES];
     });
-    
-    NSLog(@"code:%@",mstr);
 }
+
 @end
