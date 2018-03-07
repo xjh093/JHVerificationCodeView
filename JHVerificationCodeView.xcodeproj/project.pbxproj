@@ -374,8 +374,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.haocold.JHVerificationCodeView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a2f611af-f7a3-4416-beaf-4f0563baf566";
-				PROVISIONING_PROFILE_SPECIFIER = HaoCold_dev;
+				PROVISIONING_PROFILE = "a6b55bc0-269a-40bc-8d1d-d2de538f4383";
+				PROVISIONING_PROFILE_SPECIFIER = haocold_dev;
 			};
 			name = Debug;
 		};
@@ -389,8 +389,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.haocold.JHVerificationCodeView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a2f611af-f7a3-4416-beaf-4f0563baf566";
-				PROVISIONING_PROFILE_SPECIFIER = HaoCold_dev;
+				PROVISIONING_PROFILE = "a6b55bc0-269a-40bc-8d1d-d2de538f4383";
+				PROVISIONING_PROFILE_SPECIFIER = haocold_dev;
 			};
 			name = Release;
 		};
@@ -437,6 +437,7 @@
 				088BF8CB1F4FAF3C00B5863B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		088BF8CC1F4FAF3C00B5863B /* Build configuration list for PBXNativeTarget "JHVerificationCodeViewTests" */ = {
 			isa = XCConfigurationList;
@@ -445,6 +446,7 @@
 				088BF8CE1F4FAF3C00B5863B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
