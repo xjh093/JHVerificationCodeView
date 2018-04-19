@@ -29,7 +29,16 @@
 
 #import "JHVerificationCodeView.h"
 
-@implementation JHVCConfig @end
+@implementation JHVCConfig
+
+- (instancetype)init{
+    if (self = [super init]) {
+        _inputBoxSpacing = 5;
+    }
+    return self;
+}
+
+@end
 
 @interface JHVerificationCodeView()
 @property (strong,  nonatomic) JHVCConfig               *config;
@@ -56,10 +65,7 @@
     }
     
     //优先考虑 inputBoxWidth
-    CGFloat inputBoxSpacing = 5;
-    if (_config.inputBoxSpacing > 0) {
-        inputBoxSpacing = _config.inputBoxSpacing;
-    }
+    CGFloat inputBoxSpacing = _config.inputBoxSpacing;
     
     CGFloat inputBoxWidth = 0;
     if (_config.inputBoxWidth > 0) {
@@ -126,7 +132,7 @@
     _textView = [[UITextView alloc] init];
     _textView.frame = CGRectMake(0, CGRectGetHeight(frame), 0, 0);
     [self addSubview:_textView];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChange) name:UITextViewTextDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChange:) name:UITextViewTextDidChangeNotification object:_textView];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [_textView becomeFirstResponder];
@@ -143,6 +149,10 @@
 
 - (void)textChange
 {
+    if (_textView != noti.object) {
+        return;
+    }
+    
     //去空格
     NSString *text = [_textView.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     //保留数字和字母
