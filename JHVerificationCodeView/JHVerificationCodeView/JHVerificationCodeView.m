@@ -147,7 +147,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)textChange
+- (void)textChange:(NSNotification *)noti
 {
     if (_textView != noti.object) {
         return;
