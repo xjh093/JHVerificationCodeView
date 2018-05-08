@@ -1,9 +1,10 @@
 # JHVerificationCodeView
-单个的验证码输入框 & A single authentication code input box
+A single authentication code input box & 单个的验证码输入框
 
-更新日志：
-2. inputBoxSpacing can be negative. & 输入框间隔可设置成负数，让输入框连在一起. (2018-4-19)
-1. upload. (2017-8-25)
+### 更新日志：
+2.inputBoxSpacing can be negative. & 输入框间隔可设置成负数，让输入框连在一起. (2018-4-19)
+
+1.upload. (2017-8-25)
 
 
 输入框的配置：& The input field configuration:
