@@ -3,6 +3,11 @@
 
 ---
 
+## What is it?
+![image](https://github.com/xjh093/JHVerificationCodeView/blob/master/123.png)
+
+---
+
 ## Logs & 更新日志：
 
 ### 2018-4-19:
@@ -70,8 +75,3 @@
         codeView;
     })];
 ```
-
----
-
-## What is it?
-![image](https://github.com/xjh093/JHVerificationCodeView/blob/master/123.png)
