@@ -1,12 +1,19 @@
 # JHVerificationCodeView
-A single authentication code input box & 单个的验证码输入框
+### A single authentication code input box & 单个的验证码输入框
 
-### 更新日志：
-2.inputBoxSpacing can be negative. & 输入框间隔可设置成负数，让输入框连在一起. (2018-4-19)
+---
 
-1.upload. (2017-8-25)
+## Logs & 更新日志：
 
+### 2018-4-19:
+1.inputBoxSpacing can be negative. & 输入框间隔可设置成负数，让输入框连在一起.
 
+### 2017-8-25:
+1.upload. 
+
+---
+
+## Configuration:
 输入框的配置：& The input field configuration:
 
 ```
@@ -36,6 +43,10 @@ A single authentication code input box & 单个的验证码输入框
 @end
 ```
 
+---
+
+## Use:
+
 简单地使用：& Simple to use:
 ```
     JHVCConfig *config     = [[JHVCConfig alloc] init];
@@ -60,4 +71,7 @@ A single authentication code input box & 单个的验证码输入框
     })];
 ```
 
+---
+
+## What is it?
 ![image](https://github.com/xjh093/JHVerificationCodeView/blob/master/123.png)
