@@ -2,7 +2,7 @@
 ### A single authentication code input box & 单个的验证码输入框
 
 # Version
-- Latest release version: 1.1.0
+- Latest release version: [1.1.0](https://github.com/xjh093/JHVerificationCodeView/releases)
 
 ---
 
