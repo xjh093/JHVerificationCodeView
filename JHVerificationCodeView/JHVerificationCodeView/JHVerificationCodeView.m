@@ -160,10 +160,21 @@
     NSMutableString *mstr = @"".mutableCopy;
     for (int i = 0; i < text.length; ++i) {
         unichar c = [text characterAtIndex:i];
-        if ((c >= '0' && c <= '9') ||
-            (c >= 'A' && c <= 'Z') ||
-            (c >= 'a' && c <= 'z')) {
-            [mstr appendFormat:@"%c",c];
+        if (_config.inputType == JHVCConfigInputType_Number_Alphabet) {
+            if ((c >= '0' && c <= '9') ||
+                (c >= 'A' && c <= 'Z') ||
+                (c >= 'a' && c <= 'z')) {
+                [mstr appendFormat:@"%c",c];
+            }
+        }else if (_config.inputType == JHVCConfigInputType_Number) {
+            if ((c >= '0' && c <= '9')) {
+                [mstr appendFormat:@"%c",c];
+            }
+        }else if (_config.inputType == JHVCConfigInputType_Alphabet) {
+            if ((c >= 'A' && c <= 'Z') ||
+                (c >= 'a' && c <= 'z')) {
+                [mstr appendFormat:@"%c",c];
+            }
         }
     }
     

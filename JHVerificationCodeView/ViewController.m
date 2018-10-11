@@ -41,10 +41,11 @@
     config.inputBoxWidth   = 33;
     config.inputBoxHeight  = 28;
     config.tintColor       = [UIColor blackColor];
-    config.secureTextEntry = YES;
+    config.secureTextEntry = NO;
     config.inputBoxColor   = [UIColor brownColor];
     config.font            = [UIFont boldSystemFontOfSize:16];
     config.textColor       = [UIColor brownColor];
+    config.inputType       = JHVCConfigInputType_Number_Alphabet;
     
     [self.view addSubview:({
         JHVerificationCodeView *codeView =

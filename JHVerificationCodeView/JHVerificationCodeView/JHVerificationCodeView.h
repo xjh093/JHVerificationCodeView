@@ -29,6 +29,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, JHVCConfigInputType) {
+    JHVCConfigInputType_Number_Alphabet,
+    JHVCConfigInputType_Number,
+    JHVCConfigInputType_Alphabet,
+};
+
 @interface JHVCConfig : NSObject
 ///输入框个数
 @property (assign,  nonatomic) NSInteger        inputBoxNumber;
@@ -52,6 +58,8 @@
 @property (strong,  nonatomic) UIFont           *font;
 ///颜色
 @property (strong,  nonatomic) UIColor          *textColor;
+///输入类型：数字+字母，数字，字母. Default is 'JHVCConfigInputType_Number_Alphabet'
+@property (nonatomic,  assign) JHVCConfigInputType  inputType;
 @end
 
 @interface JHVerificationCodeView : UIView
