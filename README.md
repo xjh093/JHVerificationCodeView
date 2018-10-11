@@ -10,6 +10,9 @@
 
 ## Logs & 更新日志：
 
+### 2018-10-11
+1.add inputType.
+
 ### 2018-6-25
 1.add secureTextEntry.
 
