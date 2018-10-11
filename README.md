@@ -1,6 +1,9 @@
 # JHVerificationCodeView
 ### A single authentication code input box & 单个的验证码输入框
 
+# Version
+- Latest release version: 1.1.0
+
 ---
 
 ## What is it?
