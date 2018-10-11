@@ -54,6 +54,8 @@
 @property (strong,  nonatomic) UIFont           *font;
 ///颜色
 @property (strong,  nonatomic) UIColor          *textColor;
+///输入类型：数字+字母，数字，字母. Default is 'JHVCConfigInputType_Number_Alphabet'
+@property (nonatomic,  assign) JHVCConfigInputType  inputType;
 @end
 ```
 
@@ -73,6 +75,7 @@
     config.inputBoxColor   = [UIColor brownColor];
     config.font            = [UIFont boldSystemFontOfSize:16];
     config.textColor       = [UIColor brownColor];
+    config.inputType       = JHVCConfigInputType_Number_Alphabet; // Default
     
     [self.view addSubview:({
         JHVerificationCodeView *codeView =
