@@ -33,7 +33,9 @@
 
 - (instancetype)init{
     if (self = [super init]) {
+        _inputBoxBorderWidth = 1.0/[UIScreen mainScreen].scale;
         _inputBoxSpacing = 5;
+        _inputBoxColor = [UIColor lightGrayColor];
     }
     return self;
 }
@@ -99,10 +101,11 @@
         UITextField *textField = [[UITextField alloc] init];
         textField.frame = CGRectMake(_config.leftMargin+(inputBoxWidth+inputBoxSpacing)*i, (CGRectGetHeight(frame)-inputBoxHeight)*0.5, inputBoxWidth, inputBoxHeight);
         textField.textAlignment = 1;
-        textField.layer.borderWidth = 0.5;
-        textField.layer.borderColor = [UIColor lightGrayColor].CGColor;
         if (_config.inputBoxBorderWidth) {
             textField.layer.borderWidth = _config.inputBoxBorderWidth;
+        }
+        if (_config.inputBoxCornerRadius) {
+            textField.layer.cornerRadius = _config.inputBoxCornerRadius;
         }
         if (_config.inputBoxColor) {
             textField.layer.borderColor = _config.inputBoxColor.CGColor;
@@ -135,9 +138,11 @@
     [self addSubview:_textView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChange:) name:UITextViewTextDidChangeNotification object:_textView];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [_textView becomeFirstResponder];
-    });
+    if (_config.autoShowKeyboard) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [_textView becomeFirstResponder];
+        });
+    }
 }
 
 - (void)xx_tap{
@@ -189,12 +194,20 @@
     for (int i = 0; i < 6; ++i) {
         UITextField *textField = self.subviews[i];
         textField.text = @"";
+        
+        if (_config.inputBoxColor) {
+            textField.layer.borderColor = _config.inputBoxColor.CGColor;
+        }
     }
     
     for (int i = 0; i < text.length; ++i) {
         unichar c = [text characterAtIndex:i];
         UITextField *textField = self.subviews[i];
         textField.text = [NSString stringWithFormat:@"%c",c];
+        
+        if (_config.inputBoxHighlightedColor) {
+            textField.layer.borderColor = _config.inputBoxHighlightedColor.CGColor;
+        }
     }
     
     if (text.length == 6) {

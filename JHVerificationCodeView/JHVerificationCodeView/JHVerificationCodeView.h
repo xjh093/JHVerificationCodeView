@@ -42,14 +42,18 @@ typedef NS_ENUM(NSUInteger, JHVCConfigInputType) {
 @property (assign,  nonatomic) CGFloat          inputBoxWidth;
 ///单个输入框的高度
 @property (assign,  nonatomic) CGFloat          inputBoxHeight;
-///单个输入框的边框宽度
+///单个输入框的边框宽度, Default is 1 pixel
 @property (assign,  nonatomic) CGFloat          inputBoxBorderWidth;
-///输入框间距
+///单个输入框的边框圆角
+@property (assign,  nonatomic) CGFloat          inputBoxCornerRadius;
+///输入框间距, Default is 5
 @property (assign,  nonatomic) CGFloat          inputBoxSpacing;
 ///左边距
 @property (assign,  nonatomic) CGFloat          leftMargin;
-///单个输入框的颜色
+///单个输入框的颜色, Default is lightGrayColor
 @property (strong,  nonatomic) UIColor          *inputBoxColor;
+///单个输入框输入时的颜色
+@property (strong,  nonatomic) UIColor          *inputBoxHighlightedColor;
 ///光标颜色
 @property (strong,  nonatomic) UIColor          *tintColor;
 ///显示 或 隐藏
@@ -60,6 +64,10 @@ typedef NS_ENUM(NSUInteger, JHVCConfigInputType) {
 @property (strong,  nonatomic) UIColor          *textColor;
 ///输入类型：数字+字母，数字，字母. Default is 'JHVCConfigInputType_Number_Alphabet'
 @property (nonatomic,  assign) JHVCConfigInputType  inputType;
+///自动弹出键盘
+@property (nonatomic,  assign) BOOL             autoShowKeyboard;
+///
+@property (nonatomic,  assign) BOOL             useTextColor;
 @end
 
 @interface JHVerificationCodeView : UIView

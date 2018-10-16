@@ -30,32 +30,125 @@
 
 - (void)jhSetupViews
 {
-    UILabel *label = [[UILabel alloc] init];
-    label.frame = CGRectMake(0, 150, kScreenWidth, 30);
-    label.textAlignment = 1;
-    [self.view addSubview:label];
+    // example 1
+    {
+        UILabel *label = [[UILabel alloc] init];
+        label.frame = CGRectMake(0, 120, kScreenWidth, 30);
+        label.textAlignment = 1;
+        label.text = @"InputType: Number & Alphabet";
+        [self.view addSubview:label];
+        
+        JHVCConfig *config     = [[JHVCConfig alloc] init];
+        config.inputBoxNumber  = 6;
+        config.inputBoxSpacing = 5;
+        config.inputBoxWidth   = 33;
+        config.inputBoxHeight  = 28;
+        config.tintColor       = [UIColor blackColor];
+        config.secureTextEntry = NO;
+        config.inputBoxColor   = [UIColor brownColor];
+        config.font            = [UIFont boldSystemFontOfSize:16];
+        config.textColor       = [UIColor blueColor];
+        config.inputType       = JHVCConfigInputType_Number_Alphabet;
+        
+        config.inputBoxBorderWidth  = 1;
+        config.inputBoxCornerRadius = 5;
+        
+        
+        [self.view addSubview:({
+            
+            UILabel *label = [[UILabel alloc] init];
+            label.frame = CGRectMake(0, 180, kScreenWidth, 30);
+            label.textAlignment = 1;
+            [self.view addSubview:label];
+            
+            JHVerificationCodeView *codeView =
+            [[JHVerificationCodeView alloc] initWithFrame:CGRectMake(10, 150, kScreenWidth-20, 30)
+                                                   config:config];
+            codeView.finishBlock = ^(NSString *code) {
+                label.text = code;
+            };
+            codeView;
+        })];
+    }
+
+    // example 2
+    {
+        UILabel *label = [[UILabel alloc] init];
+        label.frame = CGRectMake(0, 210, kScreenWidth, 30);
+        label.textAlignment = 1;
+        label.text = @"InputType: Number";
+        [self.view addSubview:label];
+        
+        JHVCConfig *config     = [[JHVCConfig alloc] init];
+        config.inputBoxNumber  = 6;
+        config.inputBoxSpacing = 5;
+        config.inputBoxWidth   = 33;
+        config.inputBoxHeight  = 28;
+        config.tintColor       = [UIColor blackColor];
+        config.secureTextEntry = NO;
+        config.inputBoxColor   = [UIColor brownColor];
+        config.font            = [UIFont boldSystemFontOfSize:16];
+        config.textColor       = [UIColor cyanColor];
+        config.inputType       = JHVCConfigInputType_Number;
+        
+        config.inputBoxBorderWidth  = 1;
+        config.inputBoxHighlightedColor = [UIColor purpleColor];
+        
+        [self.view addSubview:({
+            
+            UILabel *label = [[UILabel alloc] init];
+            label.frame = CGRectMake(0, 270, kScreenWidth, 30);
+            label.textAlignment = 1;
+            [self.view addSubview:label];
+            
+            JHVerificationCodeView *codeView =
+            [[JHVerificationCodeView alloc] initWithFrame:CGRectMake(10, 240, kScreenWidth-20, 30)
+                                                   config:config];
+            codeView.finishBlock = ^(NSString *code) {
+                label.text = code;
+            };
+            codeView;
+        })];
+    }
     
-    JHVCConfig *config     = [[JHVCConfig alloc] init];
-    config.inputBoxNumber  = 6; 
-    config.inputBoxSpacing = 5;
-    config.inputBoxWidth   = 33;
-    config.inputBoxHeight  = 28;
-    config.tintColor       = [UIColor blackColor];
-    config.secureTextEntry = NO;
-    config.inputBoxColor   = [UIColor brownColor];
-    config.font            = [UIFont boldSystemFontOfSize:16];
-    config.textColor       = [UIColor brownColor];
-    config.inputType       = JHVCConfigInputType_Number_Alphabet;
-    
-    [self.view addSubview:({
-        JHVerificationCodeView *codeView =
-        [[JHVerificationCodeView alloc] initWithFrame:CGRectMake(10, 100, kScreenWidth-20, 30)
-                                               config:config];
-        codeView.finishBlock = ^(NSString *code) {
-            label.text = code;
-        };
-        codeView;
-    })];
+    // example 3
+    {
+        UILabel *label = [[UILabel alloc] init];
+        label.frame = CGRectMake(0, 300, kScreenWidth, 30);
+        label.textAlignment = 1;
+        label.text = @"InputType: Alphabet";
+        [self.view addSubview:label];
+        
+        JHVCConfig *config     = [[JHVCConfig alloc] init];
+        config.inputBoxNumber  = 6;
+        config.inputBoxSpacing = -1;
+        config.inputBoxWidth   = 33;
+        config.inputBoxHeight  = 28;
+        config.tintColor       = [UIColor blackColor];
+        config.secureTextEntry = NO;
+        config.inputBoxColor   = [UIColor brownColor];
+        config.font            = [UIFont boldSystemFontOfSize:16];
+        config.textColor       = [UIColor grayColor];
+        config.inputType       = JHVCConfigInputType_Alphabet;
+        
+        config.inputBoxBorderWidth  = 1;
+        
+        [self.view addSubview:({
+            
+            UILabel *label = [[UILabel alloc] init];
+            label.frame = CGRectMake(0, 360, kScreenWidth, 30);
+            label.textAlignment = 1;
+            [self.view addSubview:label];
+            
+            JHVerificationCodeView *codeView =
+            [[JHVerificationCodeView alloc] initWithFrame:CGRectMake(10, 330, kScreenWidth-20, 30)
+                                                   config:config];
+            codeView.finishBlock = ^(NSString *code) {
+                label.text = code;
+            };
+            codeView;
+        })];
+    }
     
 }
 
