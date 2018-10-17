@@ -54,7 +54,7 @@ typedef NS_ENUM(NSUInteger, JHVCConfigInputType) {
 @property (strong,  nonatomic) UIColor          *inputBoxColor;
 ///单个输入框输入时的颜色
 @property (strong,  nonatomic) UIColor          *inputBoxHighlightedColor;
-///光标颜色
+///光标颜色, Default is blueColor
 @property (strong,  nonatomic) UIColor          *tintColor;
 ///显示 或 隐藏
 @property (assign,  nonatomic) BOOL             secureTextEntry;
@@ -66,8 +66,14 @@ typedef NS_ENUM(NSUInteger, JHVCConfigInputType) {
 @property (nonatomic,  assign) JHVCConfigInputType  inputType;
 ///自动弹出键盘
 @property (nonatomic,  assign) BOOL             autoShowKeyboard;
-///
-@property (nonatomic,  assign) BOOL             useTextColor;
+///光标闪烁动画, Default is YES
+@property (nonatomic,  assign) BOOL             showFlickerAnimation;
+///显示下划线
+@property (nonatomic,  assign) BOOL             showUnderLine;
+///下划线尺寸
+@property (nonatomic,  assign) CGSize           underLineSize;
+///下划线颜色, Default is lightGrayColor
+@property (nonatomic,  strong) UIColor          *underLineColor;
 @end
 
 @interface JHVerificationCodeView : UIView

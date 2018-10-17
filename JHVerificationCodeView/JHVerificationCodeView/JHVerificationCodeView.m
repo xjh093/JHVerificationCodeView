@@ -29,6 +29,8 @@
 
 #import "JHVerificationCodeView.h"
 
+#define kFlickerAnimation @"kFlickerAnimation"
+
 @implementation JHVCConfig
 
 - (instancetype)init{
@@ -36,6 +38,9 @@
         _inputBoxBorderWidth = 1.0/[UIScreen mainScreen].scale;
         _inputBoxSpacing = 5;
         _inputBoxColor = [UIColor lightGrayColor];
+        _tintColor = [UIColor blueColor];
+        _showFlickerAnimation = YES;
+        _underLineColor = [UIColor lightGrayColor];
     }
     return self;
 }
@@ -48,6 +53,10 @@
 @end
 
 @implementation JHVerificationCodeView
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame config:(JHVCConfig *)config{
     if (self = [super initWithFrame:frame]) {
@@ -97,6 +106,19 @@
     }
     inputBoxHeight = _config.inputBoxHeight;
     
+    if (_config.showUnderLine) {
+        if (_config.underLineSize.width <= 0) {
+            CGSize size = _config.underLineSize;
+            size.width = inputBoxWidth;
+            _config.underLineSize = size;
+        }
+        if (_config.underLineSize.height <= 0) {
+            CGSize size = _config.underLineSize;
+            size.height = 1;
+            _config.underLineSize = size;
+        }
+    }
+    
     for (int i = 0; i < _config.inputBoxNumber; ++i) {
         UITextField *textField = [[UITextField alloc] init];
         textField.frame = CGRectMake(_config.leftMargin+(inputBoxWidth+inputBoxSpacing)*i, (CGRectGetHeight(frame)-inputBoxHeight)*0.5, inputBoxWidth, inputBoxHeight);
@@ -111,7 +133,20 @@
             textField.layer.borderColor = _config.inputBoxColor.CGColor;
         }
         if (_config.tintColor) {
-            textField.tintColor = _config.tintColor;
+            if (inputBoxWidth > 2 && inputBoxHeight > 8) {
+                CGFloat w = 2, y = 4, x = (inputBoxWidth-w)/2, h = inputBoxHeight-2*y;
+                [textField.layer addSublayer:({
+                    UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(x,y,w,h)];
+                    CAShapeLayer *layer = [CAShapeLayer layer];
+                    layer.path = path.CGPath;
+                    layer.fillColor = _config.tintColor.CGColor;
+                    [layer addAnimation:[self xx_alphaAnimation] forKey:kFlickerAnimation];
+                    if (i != 0) {
+                        layer.hidden = YES;
+                    }
+                    layer;
+                })];
+            }
         }
         if (_config.secureTextEntry) {
             textField.secureTextEntry = _config.secureTextEntry;
@@ -121,6 +156,17 @@
         }
         if (_config.textColor) {
             textField.textColor = _config.textColor;
+        }
+        if (_config.showUnderLine) {
+            CGFloat x = (inputBoxWidth-_config.underLineSize.width)/2.0;
+            CGFloat y = (inputBoxHeight-_config.underLineSize.height);
+            CGRect frame = CGRectMake(x, y, _config.underLineSize.width, _config.underLineSize.height);
+            
+            UIView *underLine = [[UIView alloc] init];
+            underLine.frame = frame;
+            underLine.backgroundColor = _config.underLineColor;
+            [textField addSubview:underLine];
+            
         }
         
         textField.tag = i;
@@ -136,7 +182,9 @@
     _textView.frame = CGRectMake(0, CGRectGetHeight(frame), 0, 0);
     _textView.secureTextEntry = YES;
     [self addSubview:_textView];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChange:) name:UITextViewTextDidChangeNotification object:_textView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(xx_textChange:) name:UITextViewTextDidChangeNotification object:_textView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(xx_didBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
     
     if (_config.autoShowKeyboard) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -145,23 +193,58 @@
     }
 }
 
+- (CABasicAnimation *)xx_alphaAnimation{
+    CABasicAnimation *alpha = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    alpha.fromValue = @(1.0);
+    alpha.toValue = @(0.0);
+    alpha.duration = 1.0;
+    alpha.repeatCount = CGFLOAT_MAX;
+    alpha.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    return alpha;
+}
+
 - (void)xx_tap{
     [_textView becomeFirstResponder];
 }
 
-- (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+- (void)xx_didBecomeActive{
+    // restart Flicker Animation
+    if (_config.showFlickerAnimation && _textView.text.length < self.subviews.count) {
+        UITextField *textField = self.subviews[_textView.text.length];
+        CALayer *layer = textField.layer.sublayers[0];
+        [layer removeAnimationForKey:kFlickerAnimation];
+        [layer addAnimation:[self xx_alphaAnimation] forKey:kFlickerAnimation];
+    }
 }
 
-- (void)textChange:(NSNotification *)noti
+- (void)xx_textChange:(NSNotification *)noti
 {
+    NSLog(@"%@",noti.object);
     if (_textView != noti.object) {
         return;
     }
     
-    //去空格
+    NSInteger count = _config.inputBoxNumber;
+    
+    // set default
+    for (int i = 0; i < count; ++i) {
+        UITextField *textField = self.subviews[i];
+        textField.text = @"";
+        
+        if (_config.inputBoxColor) {
+            textField.layer.borderColor = _config.inputBoxColor.CGColor;
+        }
+        if (_config.showFlickerAnimation) {
+            CALayer *layer = textField.layer.sublayers[0];
+            layer.hidden = YES;
+            [layer removeAnimationForKey:kFlickerAnimation];
+        }
+    }
+    
+    // trim space
     NSString *text = [_textView.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-    //保留数字和字母
+    // number & alphabet
+    
     NSMutableString *mstr = @"".mutableCopy;
     for (int i = 0; i < text.length; ++i) {
         unichar c = [text characterAtIndex:i];
@@ -184,22 +267,14 @@
     }
     
     text = mstr;
-    if (text.length > 6) {
-        text = [text substringToIndex:6];
+    if (text.length > count) {
+        text = [text substringToIndex:count];
     }
     _textView.text = text;
     
     NSLog(@"%@",text);
     
-    for (int i = 0; i < 6; ++i) {
-        UITextField *textField = self.subviews[i];
-        textField.text = @"";
-        
-        if (_config.inputBoxColor) {
-            textField.layer.borderColor = _config.inputBoxColor.CGColor;
-        }
-    }
-    
+    // set value
     for (int i = 0; i < text.length; ++i) {
         unichar c = [text characterAtIndex:i];
         UITextField *textField = self.subviews[i];
@@ -210,7 +285,15 @@
         }
     }
     
-    if (text.length == 6) {
+    // Flicker Animation
+    if (_config.showFlickerAnimation && text.length < self.subviews.count) {
+        UITextField *textField = self.subviews[text.length];
+        CALayer *layer = textField.layer.sublayers[0];
+        layer.hidden = NO;
+        [layer addAnimation:[self xx_alphaAnimation] forKey:kFlickerAnimation];
+    }
+    
+    if (text.length == count) {
         [self xx_finish];
     }
 }

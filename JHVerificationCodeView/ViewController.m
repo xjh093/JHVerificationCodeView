@@ -84,7 +84,7 @@
         config.inputBoxSpacing = 5;
         config.inputBoxWidth   = 33;
         config.inputBoxHeight  = 28;
-        config.tintColor       = [UIColor blackColor];
+        config.tintColor       = [UIColor greenColor];
         config.secureTextEntry = NO;
         config.inputBoxColor   = [UIColor brownColor];
         config.font            = [UIFont boldSystemFontOfSize:16];
@@ -124,8 +124,8 @@
         config.inputBoxSpacing = -1;
         config.inputBoxWidth   = 33;
         config.inputBoxHeight  = 28;
-        config.tintColor       = [UIColor blackColor];
-        config.secureTextEntry = NO;
+        config.tintColor       = [UIColor redColor];
+        config.secureTextEntry = YES;
         config.inputBoxColor   = [UIColor brownColor];
         config.font            = [UIFont boldSystemFontOfSize:16];
         config.textColor       = [UIColor grayColor];
@@ -150,6 +150,47 @@
         })];
     }
     
+    // example 4
+    {
+        UILabel *label = [[UILabel alloc] init];
+        label.frame = CGRectMake(0, 390, kScreenWidth, 30);
+        label.textAlignment = 1;
+        label.text = @"InputType: Alphabet";
+        [self.view addSubview:label];
+        
+        JHVCConfig *config     = [[JHVCConfig alloc] init];
+        config.inputBoxNumber  = 4;
+        config.inputBoxSpacing = 4;
+        config.inputBoxWidth   = 33;
+        config.inputBoxHeight  = 28;
+        config.tintColor       = [UIColor blueColor];
+        config.secureTextEntry = YES;
+        config.inputBoxColor   = [UIColor clearColor];
+        config.font            = [UIFont boldSystemFontOfSize:16];
+        config.textColor       = [UIColor grayColor];
+        config.inputType       = JHVCConfigInputType_Alphabet;
+        
+        config.inputBoxBorderWidth  = 1;
+        config.showUnderLine = YES;
+        config.underLineSize = CGSizeMake(33, 2);
+        config.underLineColor = [UIColor brownColor];
+        
+        [self.view addSubview:({
+            
+            UILabel *label = [[UILabel alloc] init];
+            label.frame = CGRectMake(0, 450, kScreenWidth, 30);
+            label.textAlignment = 1;
+            [self.view addSubview:label];
+            
+            JHVerificationCodeView *codeView =
+            [[JHVerificationCodeView alloc] initWithFrame:CGRectMake(10, 420, kScreenWidth-20, 30)
+                                                   config:config];
+            codeView.finishBlock = ^(NSString *code) {
+                label.text = code;
+            };
+            codeView;
+        })];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
