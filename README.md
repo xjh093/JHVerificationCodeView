@@ -13,6 +13,9 @@
 
 ## Logs & 更新日志：
 
+### 2018-10-17
+1.add FlickerAnimation,underline
+
 ### 2018-10-15
 1.add inputBoxCornerRadius,inputBoxHighlightedColor,add autoShowKeyboard.
 
