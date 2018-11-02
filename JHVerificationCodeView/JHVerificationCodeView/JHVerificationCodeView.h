@@ -74,6 +74,8 @@ typedef NS_ENUM(NSUInteger, JHVCConfigInputType) {
 @property (nonatomic,  assign) CGSize           underLineSize;
 ///下划线颜色, Default is lightGrayColor
 @property (nonatomic,  strong) UIColor          *underLineColor;
+///下划线高亮颜色
+@property (nonatomic,  strong) UIColor          *underLineHighlightedColor;
 @end
 
 @interface JHVerificationCodeView : UIView

@@ -174,6 +174,7 @@
         config.showUnderLine = YES;
         config.underLineSize = CGSizeMake(33, 2);
         config.underLineColor = [UIColor brownColor];
+        config.underLineHighlightedColor = [UIColor redColor];
         
         [self.view addSubview:({
             

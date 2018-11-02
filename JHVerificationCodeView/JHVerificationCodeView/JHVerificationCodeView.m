@@ -163,6 +163,7 @@
             CGRect frame = CGRectMake(x, y, _config.underLineSize.width, _config.underLineSize.height);
             
             UIView *underLine = [[UIView alloc] init];
+            underLine.tag = 100;
             underLine.frame = frame;
             underLine.backgroundColor = _config.underLineColor;
             [textField addSubview:underLine];
@@ -239,12 +240,16 @@
             layer.hidden = YES;
             [layer removeAnimationForKey:kFlickerAnimation];
         }
+        if (_config.showUnderLine) {
+            UIView *underLine = [textField viewWithTag:100];
+            underLine.backgroundColor = _config.underLineColor;
+        }
     }
     
     // trim space
     NSString *text = [_textView.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-    // number & alphabet
     
+    // number & alphabet
     NSMutableString *mstr = @"".mutableCopy;
     for (int i = 0; i < text.length; ++i) {
         unichar c = [text characterAtIndex:i];
@@ -282,6 +287,11 @@
         
         if (_config.inputBoxHighlightedColor) {
             textField.layer.borderColor = _config.inputBoxHighlightedColor.CGColor;
+        }
+        
+        if (_config.showUnderLine && _config.underLineHighlightedColor) {
+            UIView *underLine = [textField viewWithTag:100];
+            underLine.backgroundColor = _config.underLineHighlightedColor;
         }
     }
     
