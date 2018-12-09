@@ -8,12 +8,19 @@
 
 ---
 
-# What is it?
+# Cocoapods
+
+`pod "JHVerificationCodeView"`
+
+---
+
+# What
+
 ![image](https://github.com/xjh093/JHVerificationCodeView/blob/master/image.png)
 
 ---
 
-# Logs & 更新日志：
+# Logs
 
 ### 2018-11-1:
 1.add underLineHighlightedColor.
