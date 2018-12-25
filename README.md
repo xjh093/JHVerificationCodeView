@@ -22,6 +22,34 @@ Latest release version:
 
 ---
 
+# Usage
+
+```
+    JHVCConfig *config     = [[JHVCConfig alloc] init];
+    config.inputBoxNumber  = 6; 
+    config.inputBoxSpacing = 5;
+    config.inputBoxWidth   = 33;
+    config.inputBoxHeight  = 28;
+    config.tintColor       = [UIColor blackColor];
+    config.secureTextEntry = YES;
+    config.inputBoxColor   = [UIColor brownColor];
+    config.font            = [UIFont boldSystemFontOfSize:16];
+    config.textColor       = [UIColor brownColor];
+    config.inputType       = JHVCConfigInputType_Number_Alphabet; // Default
+    
+    [self.view addSubview:({
+        JHVerificationCodeView *codeView =
+        [[JHVerificationCodeView alloc] initWithFrame:CGRectMake(10, 100, kScreenWidth-20, 30)
+                                               config:config];
+        codeView.finishBlock = ^(NSString *code) {
+            label.text = code;
+        };
+        codeView;
+    })];
+```
+
+---
+
 # Logs
 
 ### 2018-11-1:
@@ -51,34 +79,6 @@ Latest release version:
 ### 2017-8-25:
 1.upload. 
 - 上传.
-
----
-
-# Usage
-
-```
-    JHVCConfig *config     = [[JHVCConfig alloc] init];
-    config.inputBoxNumber  = 6; 
-    config.inputBoxSpacing = 5;
-    config.inputBoxWidth   = 33;
-    config.inputBoxHeight  = 28;
-    config.tintColor       = [UIColor blackColor];
-    config.secureTextEntry = YES;
-    config.inputBoxColor   = [UIColor brownColor];
-    config.font            = [UIFont boldSystemFontOfSize:16];
-    config.textColor       = [UIColor brownColor];
-    config.inputType       = JHVCConfigInputType_Number_Alphabet; // Default
-    
-    [self.view addSubview:({
-        JHVerificationCodeView *codeView =
-        [[JHVerificationCodeView alloc] initWithFrame:CGRectMake(10, 100, kScreenWidth-20, 30)
-                                               config:config];
-        codeView.finishBlock = ^(NSString *code) {
-            label.text = code;
-        };
-        codeView;
-    })];
-```
 
 ---
 
