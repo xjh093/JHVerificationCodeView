@@ -166,7 +166,7 @@
         config.tintColor       = [UIColor blueColor];
         config.secureTextEntry = YES;
         config.inputBoxColor   = [UIColor clearColor];
-        config.font            = [UIFont boldSystemFontOfSize:16];
+        config.font            = [UIFont boldSystemFontOfSize:20];
         config.textColor       = [UIColor grayColor];
         config.inputType       = JHVCConfigInputType_Alphabet;
         
