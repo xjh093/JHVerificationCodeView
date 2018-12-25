@@ -32,7 +32,7 @@ A single authentication code input box & 单个的验证码输入框
 1.add `inputBoxCornerRadius`,`inputBoxHighlightedColor`,add `autoShowKeyboard`.
 
 ### 2018-10-11
-1.add inputType.
+1.add `inputType`.
 
 ### 2018-6-25
 1.add secureTextEntry.
