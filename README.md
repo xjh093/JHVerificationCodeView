@@ -79,3 +79,7 @@ Latest release version:
         codeView;
     })];
 ```
+
+---
+
+# More detail in Demo :)
