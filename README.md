@@ -38,7 +38,8 @@ A single authentication code input box & 单个的验证码输入框
 1.add `secureTextEntry`.
 
 ### 2018-4-19:
-1.`inputBoxSpacing` can be negative. & 输入框间隔可设置成负数，让输入框连在一起.
+1.`inputBoxSpacing` can be negative. 
+- 输入框间隔可设置成负数，让输入框连在一起.
 
 ### 2017-8-25:
 1.upload. 
