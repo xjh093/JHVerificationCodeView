@@ -1,5 +1,5 @@
 # JHVerificationCodeView
-### A single authentication code input box & 单个的验证码输入框
+A single authentication code input box & 单个的验证码输入框
 
 ---
 
@@ -23,7 +23,7 @@
 # Logs
 
 ### 2018-11-1:
-1.add underLineHighlightedColor.
+1.add `underLineHighlightedColor`.
 
 ### 2018-10-17
 1.add FlickerAnimation,underline
