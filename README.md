@@ -54,7 +54,7 @@ Latest release version:
 
 ---
 
-# Usage:
+# Usage
 
 ```
     JHVCConfig *config     = [[JHVCConfig alloc] init];
