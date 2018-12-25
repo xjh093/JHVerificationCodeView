@@ -36,6 +36,7 @@ A single authentication code input box & 单个的验证码输入框
 
 ### 2018-6-25
 1.add `secureTextEntry`.
+- 密文模式.
 
 ### 2018-4-19:
 1.`inputBoxSpacing` can be negative. 
