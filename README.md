@@ -26,7 +26,7 @@ A single authentication code input box & 单个的验证码输入框
 1.add `underLineHighlightedColor`.
 
 ### 2018-10-17
-1.add FlickerAnimation,underline
+1.add `FlickerAnimation`,`underline`.
 
 ### 2018-10-15
 1.add inputBoxCornerRadius,inputBoxHighlightedColor,add autoShowKeyboard.
