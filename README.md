@@ -29,7 +29,7 @@ A single authentication code input box & 单个的验证码输入框
 1.add `FlickerAnimation`,`underline`.
 
 ### 2018-10-15
-1.add inputBoxCornerRadius,inputBoxHighlightedColor,add autoShowKeyboard.
+1.add `inputBoxCornerRadius`,`inputBoxHighlightedColor`,add `autoShowKeyboard`.
 
 ### 2018-10-11
 1.add inputType.
