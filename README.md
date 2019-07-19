@@ -6,7 +6,7 @@ A single authentication code input box
 
 # Version
 Latest release version: 
-- [1.3.1](https://github.com/xjh093/JHVerificationCodeView/releases)
+- [1.3.2](https://github.com/xjh093/JHVerificationCodeView/releases)
 
 ---
 
@@ -51,6 +51,10 @@ Latest release version:
 ---
 
 # Logs
+
+### 2019-07-19:
+1.add method `- (void)clear;`
+- 一键清空.
 
 ### 2018-11-1:
 1.add `underLineHighlightedColor`.
