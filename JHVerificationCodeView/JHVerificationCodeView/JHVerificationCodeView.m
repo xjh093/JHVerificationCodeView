@@ -284,11 +284,14 @@
         unichar c = [text characterAtIndex:i];
         UITextField *textField = self.subviews[i];
         textField.text = [NSString stringWithFormat:@"%c",c];
+        if (!textField.secureTextEntry && _config.customInputHolder.length > 0) {
+            textField.text = _config.customInputHolder;
+        }
         
         if (_config.inputBoxHighlightedColor) {
             textField.layer.borderColor = _config.inputBoxHighlightedColor.CGColor;
         }
-        
+      
         if (_config.showUnderLine && _config.underLineHighlightedColor) {
             UIView *underLine = [textField viewWithTag:100];
             underLine.backgroundColor = _config.underLineHighlightedColor;

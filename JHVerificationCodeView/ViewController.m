@@ -61,7 +61,8 @@
         
         config.inputBoxBorderWidth  = 1;
         config.inputBoxCornerRadius = 5;
-        
+    
+        config.customInputHolder = @"🔒";
         
         [self.view addSubview:({
             
@@ -103,6 +104,8 @@
         
         config.inputBoxBorderWidth  = 1;
         config.inputBoxHighlightedColor = [UIColor purpleColor];
+    
+        config.customInputHolder = @"🈲";
         
         [self.view addSubview:({
             
@@ -136,13 +139,15 @@
         config.inputBoxWidth   = 33;
         config.inputBoxHeight  = 28;
         config.tintColor       = [UIColor redColor];
-        config.secureTextEntry = YES;
+        config.secureTextEntry = NO;
         config.inputBoxColor   = [UIColor brownColor];
         config.font            = [UIFont boldSystemFontOfSize:16];
         config.textColor       = [UIColor grayColor];
         config.inputType       = JHVCConfigInputType_Alphabet;
         
         config.inputBoxBorderWidth  = 1;
+    
+        config.customInputHolder = @"❄️";
         
         [self.view addSubview:({
             

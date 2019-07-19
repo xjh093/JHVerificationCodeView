@@ -76,6 +76,8 @@ typedef NS_ENUM(NSUInteger, JHVCConfigInputType) {
 @property (nonatomic,  strong) UIColor          *underLineColor;
 ///下划线高亮颜色
 @property (nonatomic,  strong) UIColor          *underLineHighlightedColor;
+///自定义的输入占位字符，secureTextEntry = NO，有效
+@property (nonatomic,    copy) NSString         *customInputHolder;
 @end
 
 @interface JHVerificationCodeView : UIView
