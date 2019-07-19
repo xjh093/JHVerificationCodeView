@@ -20,6 +20,8 @@ Latest release version:
 
 ![image](https://github.com/xjh093/JHVerificationCodeView/blob/master/image.png)
 
+![image](https://github.com/xjh093/JHVerificationCodeView/blob/master/image1.png)
+
 ---
 
 # Usage
