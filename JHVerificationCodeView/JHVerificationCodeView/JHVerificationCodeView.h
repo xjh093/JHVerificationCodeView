@@ -84,4 +84,9 @@ typedef NS_ENUM(NSUInteger, JHVCConfigInputType) {
 
 - (instancetype)initWithFrame:(CGRect)frame config:(JHVCConfig *)config;
 
+/**
+ 清空所有输入
+ */
+- (void)clear;
+
 @end

@@ -220,7 +220,7 @@
 
 - (void)xx_textChange:(NSNotification *)noti
 {
-    NSLog(@"%@",noti.object);
+    //NSLog(@"%@",noti.object);
     if (_textView != noti.object) {
         return;
     }
@@ -317,6 +317,14 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self endEditing:YES];
     });
+}
+
+#pragma mark - public
+
+- (void)clear
+{
+    _textView.text = @"";
+    [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:_textView];
 }
 
 @end

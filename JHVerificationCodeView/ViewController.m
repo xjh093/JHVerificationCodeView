@@ -26,6 +26,15 @@
     
     [self jhSetupViews];
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:({
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.titleLabel.font = [UIFont systemFontOfSize:16];
+        [button setTitle:@"清空" forState:0];
+        [button setTitleColor:[UIColor blackColor] forState:0];
+        [button sizeToFit];
+        [button addTarget:self action:@selector(clearAction) forControlEvents:1<<6];
+        button;
+    })];
 }
 
 - (void)jhSetupViews
@@ -67,6 +76,7 @@
             codeView.finishBlock = ^(NSString *code) {
                 label.text = code;
             };
+            codeView.tag = 100;
             codeView;
         })];
     }
@@ -107,6 +117,7 @@
             codeView.finishBlock = ^(NSString *code) {
                 label.text = code;
             };
+            codeView.tag = 200;
             codeView;
         })];
     }
@@ -146,6 +157,7 @@
             codeView.finishBlock = ^(NSString *code) {
                 label.text = code;
             };
+            codeView.tag = 300;
             codeView;
         })];
     }
@@ -166,7 +178,7 @@
         config.tintColor       = [UIColor blueColor];
         config.secureTextEntry = YES;
         config.inputBoxColor   = [UIColor clearColor];
-        config.font            = [UIFont boldSystemFontOfSize:16];
+        config.font            = [UIFont boldSystemFontOfSize:20];
         config.textColor       = [UIColor grayColor];
         config.inputType       = JHVCConfigInputType_Alphabet;
         
@@ -189,9 +201,25 @@
             codeView.finishBlock = ^(NSString *code) {
                 label.text = code;
             };
+            codeView.tag = 400;
             codeView;
         })];
     }
+}
+
+
+- (void)clearAction
+{
+    JHVerificationCodeView *codeView1 = [self.view viewWithTag:100];
+    JHVerificationCodeView *codeView2 = [self.view viewWithTag:200];
+    JHVerificationCodeView *codeView3 = [self.view viewWithTag:300];
+    JHVerificationCodeView *codeView4 = [self.view viewWithTag:400];
+    
+    [codeView1 clear];
+    [codeView2 clear];
+    [codeView3 clear];
+    [codeView4 clear];
+    
 }
 
 - (void)didReceiveMemoryWarning {
