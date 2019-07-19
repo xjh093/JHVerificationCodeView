@@ -6,7 +6,7 @@ A single authentication code input box
 
 # Version
 Latest release version: 
-- [1.3.2](https://github.com/xjh093/JHVerificationCodeView/releases)
+- [1.3.3](https://github.com/xjh093/JHVerificationCodeView/releases)
 
 ---
 
@@ -20,7 +20,7 @@ Latest release version:
 
 ![image](https://github.com/xjh093/JHVerificationCodeView/blob/master/image.png)
 
-![image](https://github.com/xjh093/JHVerificationCodeView/blob/master/image1.png)
+![image](https://github.com/xjh093/JHVerificationCodeView/blob/master/image2.png)
 
 ---
 
@@ -57,6 +57,9 @@ Latest release version:
 ### 2019-07-19:
 1.add method `- (void)clear;`
 - 一键清空.
+
+2.add `customInputHolder`.
+- 自定义输入占位字符.
 
 ### 2018-11-1:
 1.add `underLineHighlightedColor`.
