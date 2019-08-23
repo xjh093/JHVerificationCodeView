@@ -276,8 +276,11 @@
         text = [text substringToIndex:count];
     }
     _textView.text = text;
+    if (_inputBlock) {
+        _inputBlock(text);
+    }
     
-    NSLog(@"%@",text);
+    //NSLog(@"%@",text);
     
     // set value
     for (int i = 0; i < text.length; ++i) {

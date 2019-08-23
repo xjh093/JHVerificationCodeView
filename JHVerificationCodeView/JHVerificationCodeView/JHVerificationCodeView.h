@@ -82,6 +82,7 @@ typedef NS_ENUM(NSUInteger, JHVCConfigInputType) {
 
 @interface JHVerificationCodeView : UIView
 
+@property (copy,    nonatomic) void (^inputBlock)(NSString *code);
 @property (copy,    nonatomic) void (^finishBlock)(NSString *code);
 
 - (instancetype)initWithFrame:(CGRect)frame config:(JHVCConfig *)config;

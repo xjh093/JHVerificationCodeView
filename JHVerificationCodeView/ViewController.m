@@ -77,6 +77,9 @@
             codeView.finishBlock = ^(NSString *code) {
                 label.text = code;
             };
+            codeView.inputBlock = ^(NSString *code) {
+                NSLog(@"example 1 code:%@",code);
+            };
             codeView.tag = 100;
             codeView;
         })];
@@ -120,6 +123,9 @@
             codeView.finishBlock = ^(NSString *code) {
                 label.text = code;
             };
+            codeView.inputBlock = ^(NSString *code) {
+                NSLog(@"example 2 code:%@",code);
+            };
             codeView.tag = 200;
             codeView;
         })];
@@ -161,6 +167,9 @@
                                                    config:config];
             codeView.finishBlock = ^(NSString *code) {
                 label.text = code;
+            };
+            codeView.inputBlock = ^(NSString *code) {
+                NSLog(@"example 3 code:%@",code);
             };
             codeView.tag = 300;
             codeView;
@@ -205,6 +214,9 @@
                                                    config:config];
             codeView.finishBlock = ^(NSString *code) {
                 label.text = code;
+            };
+            codeView.inputBlock = ^(NSString *code) {
+                NSLog(@"example 4 code:%@",code);
             };
             codeView.tag = 400;
             codeView;
