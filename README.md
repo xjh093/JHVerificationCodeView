@@ -6,7 +6,7 @@ A single authentication code input box
 
 # Version
 Latest release version: 
-- [1.3.3](https://github.com/xjh093/JHVerificationCodeView/releases)
+- [1.3.4](https://github.com/xjh093/JHVerificationCodeView/releases)
 
 ---
 
@@ -53,6 +53,10 @@ Latest release version:
 ---
 
 # Logs
+
+### 2019-08-23:
+1. add `inputBlock`.
+- 输入回调.
 
 ### 2019-07-19:
 1.add method `- (void)clear;`
