@@ -1,5 +1,11 @@
 # Logs
 
+### 2019-08-28:
+1. add `keyboardType` and `useSystemPasswordKeyboard`.
+- 键盘类型，系统密码键盘.
+
+---
+
 ### 2019-08-23:
 1. add `inputBlock`.
 - 输入回调.
