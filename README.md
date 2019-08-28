@@ -6,7 +6,7 @@ A single authentication code input box
 
 # Version
 Latest release version: 
-- [1.3.4](https://github.com/xjh093/JHVerificationCodeView/releases)
+- [1.3.5](https://github.com/xjh093/JHVerificationCodeView/releases)
 
 ---
 
