@@ -181,7 +181,8 @@
     
     _textView = [[UITextView alloc] init];
     _textView.frame = CGRectMake(0, CGRectGetHeight(frame), 0, 0);
-    _textView.secureTextEntry = YES;
+    _textView.secureTextEntry = _config.useSystemPasswordKeyboard;
+    _textView.keyboardType = _config.keyboardType;
     [self addSubview:_textView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(xx_textChange:) name:UITextViewTextDidChangeNotification object:_textView];

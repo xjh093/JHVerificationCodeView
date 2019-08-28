@@ -63,7 +63,10 @@
         config.inputBoxCornerRadius = 5;
     
         config.customInputHolder = @"🔒";
-        
+    
+        config.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        config.useSystemPasswordKeyboard = YES;
+    
         [self.view addSubview:({
             
             UILabel *label = [[UILabel alloc] init];
@@ -109,7 +112,7 @@
         config.inputBoxHighlightedColor = [UIColor purpleColor];
     
         config.customInputHolder = @"🈲";
-        
+    
         [self.view addSubview:({
             
             UILabel *label = [[UILabel alloc] init];
@@ -154,7 +157,7 @@
         config.inputBoxBorderWidth  = 1;
     
         config.customInputHolder = @"❄️";
-        
+    
         [self.view addSubview:({
             
             UILabel *label = [[UILabel alloc] init];
@@ -201,7 +204,7 @@
         config.underLineSize = CGSizeMake(33, 2);
         config.underLineColor = [UIColor brownColor];
         config.underLineHighlightedColor = [UIColor redColor];
-        
+    
         [self.view addSubview:({
             
             UILabel *label = [[UILabel alloc] init];

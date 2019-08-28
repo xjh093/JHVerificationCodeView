@@ -78,6 +78,10 @@ typedef NS_ENUM(NSUInteger, JHVCConfigInputType) {
 @property (nonatomic,  strong) UIColor          *underLineHighlightedColor;
 ///自定义的输入占位字符，secureTextEntry = NO，有效
 @property (nonatomic,    copy) NSString         *customInputHolder;
+///设置键盘类型
+@property (nonatomic,  assign) UIKeyboardType   keyboardType;
+///使用系统的密码键盘
+@property (nonatomic,  assign) BOOL             useSystemPasswordKeyboard;
 @end
 
 @interface JHVerificationCodeView : UIView
