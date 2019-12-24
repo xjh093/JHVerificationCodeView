@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "JHVerificationCodeView"
-  s.version      = "1.3.5"
+  s.version      = "1.3.6"
   s.summary      = "A simple Verification Code View."
   s.homepage     = "https://github.com/xjh093/JHVerificationCodeView"
   s.license      = "MIT"

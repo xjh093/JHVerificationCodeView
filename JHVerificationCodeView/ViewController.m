@@ -62,10 +62,14 @@
         config.inputBoxBorderWidth  = 1;
         config.inputBoxCornerRadius = 5;
     
-        config.customInputHolder = @"🔒";
+        //config.customInputHolder = @"🔒";
     
         config.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
         config.useSystemPasswordKeyboard = YES;
+    
+        config.inputBoxFinishColors = @[[UIColor redColor],[UIColor orangeColor]];
+        config.finishFonts = @[[UIFont boldSystemFontOfSize:20],[UIFont systemFontOfSize:20]];
+        config.finishTextColors = @[[UIColor greenColor],[UIColor orangeColor]];
     
         [self.view addSubview:({
             
@@ -77,8 +81,12 @@
             JHVerificationCodeView *codeView =
             [[JHVerificationCodeView alloc] initWithFrame:CGRectMake(10, 150, kScreenWidth-20, 30)
                                                    config:config];
-            codeView.finishBlock = ^(NSString *code) {
+            codeView.finishBlock = ^(JHVerificationCodeView *codeView, NSString *code) {
                 label.text = code;
+                
+                // 根据最后输入结果，判断显示哪种颜色
+                NSUInteger index = [code isEqualToString:@"123asd"] ? 1 : 0;
+                [codeView showInputFinishColorWithIndex:index];
             };
             codeView.inputBlock = ^(NSString *code) {
                 NSLog(@"example 1 code:%@",code);
@@ -113,6 +121,10 @@
     
         config.customInputHolder = @"🈲";
     
+        config.inputBoxFinishColors = @[[UIColor orangeColor],[UIColor redColor]];
+        config.finishFonts = @[[UIFont boldSystemFontOfSize:20],[UIFont systemFontOfSize:20]];
+        config.finishTextColors = @[[UIColor orangeColor],[UIColor greenColor]];
+    
         [self.view addSubview:({
             
             UILabel *label = [[UILabel alloc] init];
@@ -123,8 +135,12 @@
             JHVerificationCodeView *codeView =
             [[JHVerificationCodeView alloc] initWithFrame:CGRectMake(10, 240, kScreenWidth-20, 30)
                                                    config:config];
-            codeView.finishBlock = ^(NSString *code) {
+            codeView.finishBlock = ^(JHVerificationCodeView *codeView, NSString *code) {
                 label.text = code;
+                
+                // 根据最后输入结果，判断显示哪种颜色
+                NSUInteger index = [code isEqualToString:@"123456"] ? 1 : 0;
+                [codeView showInputFinishColorWithIndex:index];
             };
             codeView.inputBlock = ^(NSString *code) {
                 NSLog(@"example 2 code:%@",code);
@@ -168,7 +184,7 @@
             JHVerificationCodeView *codeView =
             [[JHVerificationCodeView alloc] initWithFrame:CGRectMake(10, 330, kScreenWidth-20, 30)
                                                    config:config];
-            codeView.finishBlock = ^(NSString *code) {
+            codeView.finishBlock = ^(JHVerificationCodeView *codeView, NSString *code) {
                 label.text = code;
             };
             codeView.inputBlock = ^(NSString *code) {
@@ -205,6 +221,10 @@
         config.underLineColor = [UIColor brownColor];
         config.underLineHighlightedColor = [UIColor redColor];
     
+        config.underLineFinishColors = @[[UIColor blueColor],[UIColor orangeColor]];
+        config.finishFonts = @[[UIFont boldSystemFontOfSize:20],[UIFont systemFontOfSize:20]];
+        config.finishTextColors = @[[UIColor greenColor],[UIColor orangeColor]];
+    
         [self.view addSubview:({
             
             UILabel *label = [[UILabel alloc] init];
@@ -215,8 +235,12 @@
             JHVerificationCodeView *codeView =
             [[JHVerificationCodeView alloc] initWithFrame:CGRectMake(10, 420, kScreenWidth-20, 30)
                                                    config:config];
-            codeView.finishBlock = ^(NSString *code) {
+            codeView.finishBlock = ^(JHVerificationCodeView *codeView, NSString *code) {
                 label.text = code;
+                
+                // 根据最后输入结果，判断显示哪种颜色
+                NSUInteger index = [code isEqualToString:@"Asdf"] ? 1 : 0;
+                [codeView showInputFinishColorWithIndex:index];
             };
             codeView.inputBlock = ^(NSString *code) {
                 NSLog(@"example 4 code:%@",code);

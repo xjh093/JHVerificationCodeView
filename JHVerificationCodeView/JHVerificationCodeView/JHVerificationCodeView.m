@@ -39,6 +39,8 @@
         _inputBoxSpacing = 5;
         _inputBoxColor = [UIColor lightGrayColor];
         _tintColor = [UIColor blueColor];
+        _font = [UIFont boldSystemFontOfSize:16];
+        _textColor = [UIColor blackColor];
         _showFlickerAnimation = YES;
         _underLineColor = [UIColor lightGrayColor];
     }
@@ -50,6 +52,8 @@
 @interface JHVerificationCodeView()
 @property (strong,  nonatomic) JHVCConfig               *config;
 @property (strong,  nonatomic) UITextView               *textView;
+@property (nonatomic,  assign) BOOL                      inputFinish;
+@property (nonatomic,  assign) NSUInteger                inputFinishIndex;
 @end
 
 @implementation JHVerificationCodeView
@@ -226,26 +230,8 @@
         return;
     }
     
-    NSInteger count = _config.inputBoxNumber;
-    
     // set default
-    for (int i = 0; i < count; ++i) {
-        UITextField *textField = self.subviews[i];
-        textField.text = @"";
-        
-        if (_config.inputBoxColor) {
-            textField.layer.borderColor = _config.inputBoxColor.CGColor;
-        }
-        if (_config.showFlickerAnimation) {
-            CALayer *layer = textField.layer.sublayers[0];
-            layer.hidden = YES;
-            [layer removeAnimationForKey:kFlickerAnimation];
-        }
-        if (_config.showUnderLine) {
-            UIView *underLine = [textField viewWithTag:100];
-            underLine.backgroundColor = _config.underLineColor;
-        }
-    }
+    [self xx_setDefault];
     
     // trim space
     NSString *text = [_textView.text stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -273,6 +259,7 @@
     }
     
     text = mstr;
+    NSInteger count = _config.inputBoxNumber;
     if (text.length > count) {
         text = [text substringToIndex:count];
     }
@@ -281,9 +268,52 @@
         _inputBlock(text);
     }
     
-    //NSLog(@"%@",text);
-    
     // set value
+    [self xx_setValue:text];
+    
+    // Flicker Animation
+    [self xx_flickerAnimation:text];
+    
+    if (_inputFinish) {
+        [self xx_finish];
+    }
+}
+
+- (void)xx_setDefault
+{
+    for (int i = 0; i < _config.inputBoxNumber; ++i) {
+        UITextField *textField = self.subviews[i];
+        textField.text = @"";
+        
+        if (_config.inputBoxColor) {
+            textField.layer.borderColor = _config.inputBoxColor.CGColor;
+        }
+        if (_config.showFlickerAnimation) {
+            CALayer *layer = textField.layer.sublayers[0];
+            layer.hidden = YES;
+            [layer removeAnimationForKey:kFlickerAnimation];
+        }
+        if (_config.showUnderLine) {
+            UIView *underLine = [textField viewWithTag:100];
+            underLine.backgroundColor = _config.underLineColor;
+        }
+    }
+}
+
+- (void)xx_flickerAnimation:(NSString *)text
+{
+    if (_config.showFlickerAnimation && text.length < self.subviews.count) {
+        UITextField *textField = self.subviews[text.length];
+        CALayer *layer = textField.layer.sublayers[0];
+        layer.hidden = NO;
+        [layer addAnimation:[self xx_alphaAnimation] forKey:kFlickerAnimation];
+    }
+}
+
+- (void)xx_setValue:(NSString *)text
+{
+    _inputFinish = (text.length == _config.inputBoxNumber);
+    
     for (int i = 0; i < text.length; ++i) {
         unichar c = [text characterAtIndex:i];
         UITextField *textField = self.subviews[i];
@@ -292,33 +322,45 @@
             textField.text = _config.customInputHolder;
         }
         
-        if (_config.inputBoxHighlightedColor) {
-            textField.layer.borderColor = _config.inputBoxHighlightedColor.CGColor;
+        // Input Status
+        UIFont *font = _config.font;
+        UIColor *color = _config.textColor;
+        UIColor *inputBoxColor = _config.inputBoxHighlightedColor;
+        UIColor *underLineColor = _config.underLineHighlightedColor;
+        
+        // Finish Status
+        if (_inputFinish) {
+            if (_inputFinishIndex < _config.finishFonts.count) {
+                font = _config.finishFonts[_inputFinishIndex];
+            }
+            if (_inputFinishIndex <  _config.finishTextColors.count) {
+                color = _config.finishTextColors[_inputFinishIndex];
+            }
+            if (_inputFinishIndex < _config.inputBoxFinishColors.count) {
+                inputBoxColor = _config.inputBoxFinishColors[_inputFinishIndex];
+            }
+            if (_inputFinishIndex < _config.underLineFinishColors.count) {
+                underLineColor = _config.underLineFinishColors[_inputFinishIndex];
+            }
         }
-      
-        if (_config.showUnderLine && _config.underLineHighlightedColor) {
+        
+        textField.font = font;
+        textField.textColor = color;
+        
+        if (inputBoxColor) {
+            textField.layer.borderColor = inputBoxColor.CGColor;
+        }
+        if (_config.showUnderLine && underLineColor) {
             UIView *underLine = [textField viewWithTag:100];
-            underLine.backgroundColor = _config.underLineHighlightedColor;
+            underLine.backgroundColor = underLineColor;
         }
-    }
-    
-    // Flicker Animation
-    if (_config.showFlickerAnimation && text.length < self.subviews.count) {
-        UITextField *textField = self.subviews[text.length];
-        CALayer *layer = textField.layer.sublayers[0];
-        layer.hidden = NO;
-        [layer addAnimation:[self xx_alphaAnimation] forKey:kFlickerAnimation];
-    }
-    
-    if (text.length == count) {
-        [self xx_finish];
     }
 }
 
 - (void)xx_finish
 {
     if (_finishBlock) {
-        _finishBlock(_textView.text);
+        _finishBlock(self, _textView.text);
     }
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -331,7 +373,16 @@
 - (void)clear
 {
     _textView.text = @"";
-    [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:_textView];
+    
+    [self xx_setDefault];
+    [self xx_flickerAnimation:_textView.text];
+}
+
+- (void)showInputFinishColorWithIndex:(NSUInteger)index
+{
+    _inputFinishIndex = index;
+    
+    [self xx_setValue:_textView.text];
 }
 
 @end

@@ -27,6 +27,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+//  version: 1.3.6
+//  date: 2019-12-24
+
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSUInteger, JHVCConfigInputType) {
@@ -36,6 +39,9 @@ typedef NS_ENUM(NSUInteger, JHVCConfigInputType) {
 };
 
 @interface JHVCConfig : NSObject
+
+//============================ Initialization ============================
+
 ///输入框个数
 @property (assign,  nonatomic) NSInteger        inputBoxNumber;
 ///单个输入框的宽度
@@ -52,15 +58,13 @@ typedef NS_ENUM(NSUInteger, JHVCConfigInputType) {
 @property (assign,  nonatomic) CGFloat          leftMargin;
 ///单个输入框的颜色, Default is lightGrayColor
 @property (strong,  nonatomic) UIColor          *inputBoxColor;
-///单个输入框输入时的颜色
-@property (strong,  nonatomic) UIColor          *inputBoxHighlightedColor;
 ///光标颜色, Default is blueColor
 @property (strong,  nonatomic) UIColor          *tintColor;
 ///显示 或 隐藏
 @property (assign,  nonatomic) BOOL             secureTextEntry;
-///字体
+///字体, Default is [UIFont boldSystemFontOfSize:16]
 @property (strong,  nonatomic) UIFont           *font;
-///颜色
+///颜色, Default is [UIColor blackColor]
 @property (strong,  nonatomic) UIColor          *textColor;
 ///输入类型：数字+字母，数字，字母. Default is 'JHVCConfigInputType_Number_Alphabet'
 @property (nonatomic,  assign) JHVCConfigInputType  inputType;
@@ -74,20 +78,38 @@ typedef NS_ENUM(NSUInteger, JHVCConfigInputType) {
 @property (nonatomic,  assign) CGSize           underLineSize;
 ///下划线颜色, Default is lightGrayColor
 @property (nonatomic,  strong) UIColor          *underLineColor;
-///下划线高亮颜色
-@property (nonatomic,  strong) UIColor          *underLineHighlightedColor;
 ///自定义的输入占位字符，secureTextEntry = NO，有效
 @property (nonatomic,    copy) NSString         *customInputHolder;
 ///设置键盘类型
 @property (nonatomic,  assign) UIKeyboardType   keyboardType;
 ///使用系统的密码键盘
 @property (nonatomic,  assign) BOOL             useSystemPasswordKeyboard;
+
+//============================ Input ============================
+
+///单个输入框输入时的颜色
+@property (strong,  nonatomic) UIColor          *inputBoxHighlightedColor;
+///下划线高亮颜色
+@property (nonatomic,  strong) UIColor          *underLineHighlightedColor;
+
+//============================ Finish ============================
+/* 输入完成后，可能根据不同的状态，显示不同的颜色。  */
+
+///单个输入框输入时的颜色
+@property (strong,  nonatomic) NSArray<UIColor*>    *inputBoxFinishColors;
+///下划线高亮颜色
+@property (nonatomic,  strong) NSArray<UIColor*>    *underLineFinishColors;
+///输入完成时字体
+@property (strong,  nonatomic) NSArray<UIFont*>     *finishFonts;
+///输入完成时颜色
+@property (strong,  nonatomic) NSArray<UIColor*>    *finishTextColors;
+
 @end
 
 @interface JHVerificationCodeView : UIView
 
 @property (copy,    nonatomic) void (^inputBlock)(NSString *code);
-@property (copy,    nonatomic) void (^finishBlock)(NSString *code);
+@property (copy,    nonatomic) void (^finishBlock)(JHVerificationCodeView *codeView, NSString *code);
 
 - (instancetype)initWithFrame:(CGRect)frame config:(JHVCConfig *)config;
 
@@ -95,5 +117,12 @@ typedef NS_ENUM(NSUInteger, JHVCConfigInputType) {
  清空所有输入
  */
 - (void)clear;
+
+/**
+ 输入完成后，调用此方法，根据 index 从 `Finish` 下的4个属性获取对应的值来设置颜色。
+ 
+ @param index 用于从 `inputBoxFinishColors`、`underLineFinishColors`、`finishFonts`、`finishTextColors`中获取对应的值
+ */
+- (void)showInputFinishColorWithIndex:(NSUInteger)index;
 
 @end
