@@ -1,5 +1,11 @@
 # Logs
 
+### 2019-12-24:
+1. add `inputBoxFinishColors`、`underLineFinishColors`、`finishFonts`、`finishTextColors`.
+2. add method `showInputFinishColorWithIndex:`
+
+---
+
 ### 2019-08-28:
 1. add `keyboardType` and `useSystemPasswordKeyboard`.
 - 键盘类型，系统密码键盘.
