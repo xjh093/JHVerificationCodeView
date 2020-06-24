@@ -362,10 +362,6 @@
     if (_finishBlock) {
         _finishBlock(self, _textView.text);
     }
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self endEditing:YES];
-    });
 }
 
 #pragma mark - public
