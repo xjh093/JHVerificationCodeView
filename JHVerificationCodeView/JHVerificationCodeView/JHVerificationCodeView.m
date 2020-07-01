@@ -357,6 +357,7 @@
 
 - (void)xx_finish
 {
+    [_textView resignFirstResponder];
     if (_finishBlock) {
         _finishBlock(self, _textView.text);
     }
