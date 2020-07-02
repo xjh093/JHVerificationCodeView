@@ -189,6 +189,8 @@
     _textView.keyboardType = _config.keyboardType;
     [self addSubview:_textView];
     
+    [self removeKeyBordToolbarDoneButton];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(xx_textChange:) name:UITextViewTextDidChangeNotification object:_textView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(xx_didBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
     
@@ -196,7 +198,12 @@
         [_textView becomeFirstResponder];
     }
 }
-
+// 移除键盘上方的完成按钮
+- (void)removeKeyBordToolbarDoneButton{
+    UIToolbar * toolbar = [UIToolbar new];
+    _textView.inputAccessoryView = toolbar;
+    
+}
 - (CABasicAnimation *)xx_alphaAnimation{
     CABasicAnimation *alpha = [CABasicAnimation animationWithKeyPath:@"opacity"];
     alpha.fromValue = @(1.0);
