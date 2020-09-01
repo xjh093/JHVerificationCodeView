@@ -51,7 +51,7 @@
 
 @interface JHVerificationCodeView()
 @property (strong,  nonatomic) JHVCConfig               *config;
-@property (strong,  nonatomic) UITextView               *textView;
+@property (strong,  nonatomic) UITextField              *textView;
 @property (nonatomic,  assign) BOOL                      inputFinish;
 @property (nonatomic,  assign) NSUInteger                inputFinishIndex;
 @end
@@ -183,14 +183,18 @@
         [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(xx_tap)];
     })];
     
-    _textView = [[UITextView alloc] init];
+    _textView = [[UITextField alloc] init];
     _textView.frame = CGRectMake(0, CGRectGetHeight(frame), 0, 0);
     _textView.secureTextEntry = _config.useSystemPasswordKeyboard;
     _textView.keyboardType = _config.keyboardType;
+    _textView.hidden = YES;
+    if (@available(iOS 12.0, *)) {
+        _textView.textContentType = UITextContentTypeOneTimeCode;
+    }
     [self addSubview:_textView];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(xx_textChange:) name:UITextViewTextDidChangeNotification object:_textView];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(xx_didBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(xx_textChange:) name:UITextFieldTextDidChangeNotification object:_textView];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(xx_didBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
     
     if (_config.autoShowKeyboard) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -205,6 +209,7 @@
     alpha.toValue = @(0.0);
     alpha.duration = 1.0;
     alpha.repeatCount = CGFLOAT_MAX;
+    alpha.removedOnCompletion = NO;
     alpha.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
     return alpha;
 }
