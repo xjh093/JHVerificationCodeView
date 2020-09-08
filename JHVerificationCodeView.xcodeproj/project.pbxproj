@@ -15,6 +15,7 @@
 		088BF8BA1F4FAF3C00B5863B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088BF8B81F4FAF3C00B5863B /* LaunchScreen.storyboard */; };
 		088BF8C51F4FAF3C00B5863B /* JHVerificationCodeViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 088BF8C41F4FAF3C00B5863B /* JHVerificationCodeViewTests.m */; };
 		088BF8D21F4FAF7500B5863B /* JHVerificationCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088BF8D11F4FAF7500B5863B /* JHVerificationCodeView.m */; };
+		18EE78502507AA8000E7F10D /* NextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE784F2507AA8000E7F10D /* NextViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,8 @@
 		088BF8C61F4FAF3C00B5863B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		088BF8D01F4FAF7500B5863B /* JHVerificationCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHVerificationCodeView.h; sourceTree = "<group>"; };
 		088BF8D11F4FAF7500B5863B /* JHVerificationCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHVerificationCodeView.m; sourceTree = "<group>"; };
+		18EE784E2507AA8000E7F10D /* NextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NextViewController.h; sourceTree = "<group>"; };
+		18EE784F2507AA8000E7F10D /* NextViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NextViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +92,8 @@
 				088BF8AE1F4FAF3C00B5863B /* AppDelegate.m */,
 				088BF8B01F4FAF3C00B5863B /* ViewController.h */,
 				088BF8B11F4FAF3C00B5863B /* ViewController.m */,
+				18EE784E2507AA8000E7F10D /* NextViewController.h */,
+				18EE784F2507AA8000E7F10D /* NextViewController.m */,
 				088BF8B31F4FAF3C00B5863B /* Main.storyboard */,
 				088BF8B61F4FAF3C00B5863B /* Assets.xcassets */,
 				088BF8B81F4FAF3C00B5863B /* LaunchScreen.storyboard */,
@@ -228,6 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18EE78502507AA8000E7F10D /* NextViewController.m in Sources */,
 				088BF8B21F4FAF3C00B5863B /* ViewController.m in Sources */,
 				088BF8AF1F4FAF3C00B5863B /* AppDelegate.m in Sources */,
 				088BF8D21F4FAF7500B5863B /* JHVerificationCodeView.m in Sources */,

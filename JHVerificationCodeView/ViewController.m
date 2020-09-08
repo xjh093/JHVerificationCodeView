@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "JHVerificationCodeView.h"
+#import "NextViewController.h"
+
 
 #define kScreenWidth   [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight  [UIScreen mainScreen].bounds.size.height
@@ -35,6 +37,27 @@
         [button addTarget:self action:@selector(clearAction) forControlEvents:1<<6];
         button;
     })];
+    
+    self.navigationItem.rightBarButtonItems = @[
+        [[UIBarButtonItem alloc] initWithCustomView:({
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            button.titleLabel.font = [UIFont systemFontOfSize:16];
+            [button setTitle:@"清空" forState:0];
+            [button setTitleColor:[UIColor blackColor] forState:0];
+            [button sizeToFit];
+            [button addTarget:self action:@selector(clearAction) forControlEvents:1<<6];
+            button;
+        })],
+        [[UIBarButtonItem alloc] initWithCustomView:({
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            button.titleLabel.font = [UIFont systemFontOfSize:16];
+            [button setTitle:@"跳转" forState:0];
+            [button setTitleColor:[UIColor blackColor] forState:0];
+            [button sizeToFit];
+            [button addTarget:self action:@selector(jumpAction) forControlEvents:1<<6];
+            button;
+        })]
+    ];
 }
 
 - (void)jhSetupViews
@@ -264,6 +287,11 @@
     [codeView3 clear];
     [codeView4 clear];
     
+}
+
+- (void)jumpAction
+{
+    [self.navigationController pushViewController:[[NextViewController alloc] init] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

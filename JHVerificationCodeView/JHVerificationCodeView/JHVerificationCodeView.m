@@ -43,6 +43,7 @@
         _textColor = [UIColor blackColor];
         _showFlickerAnimation = YES;
         _underLineColor = [UIColor lightGrayColor];
+        _autoShowKeyboardDelay = 0.5;
     }
     return self;
 }
@@ -197,7 +198,7 @@
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(xx_didBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
     
     if (_config.autoShowKeyboard) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_config.autoShowKeyboardDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [_textView becomeFirstResponder];
         });
     }

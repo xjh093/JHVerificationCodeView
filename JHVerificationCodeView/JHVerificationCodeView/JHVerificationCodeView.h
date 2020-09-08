@@ -70,6 +70,8 @@ typedef NS_ENUM(NSUInteger, JHVCConfigInputType) {
 @property (nonatomic,  assign) JHVCConfigInputType  inputType;
 ///自动弹出键盘
 @property (nonatomic,  assign) BOOL             autoShowKeyboard;
+///默认0.5
+@property (nonatomic,  assign) CGFloat          autoShowKeyboardDelay;
 ///光标闪烁动画, Default is YES
 @property (nonatomic,  assign) BOOL             showFlickerAnimation;
 ///显示下划线
