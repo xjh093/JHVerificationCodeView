@@ -1,5 +1,17 @@
 # Logs
 
+### 2020-09-08
+1.add `autoShowKeyboardDelay`
+- 延迟弹出键盘
+
+---
+
+### 2020-09-01
+1.add One Time Code
+- 验证码快捷自动填充
+
+---
+
 ### 2019-12-24:
 1. add `inputBoxFinishColors`、`underLineFinishColors`、`finishFonts`、`finishTextColors`.
 2. add method `showInputFinishColorWithIndex:`
