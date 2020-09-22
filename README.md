@@ -8,6 +8,9 @@ A single authentication code input box
 Latest release version: 
 - [1.3.7](https://github.com/xjh093/JHVerificationCodeView/releases)
 
+Swift version:
+- [JHVerifyCodeView](https://github.com/xjh093/JHVerifyCodeView)
+
 ---
 
 # Cocoapods
