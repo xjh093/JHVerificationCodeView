@@ -27,8 +27,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-//  version: 1.3.6
-//  date: 2019-12-24
+//  version: 1.3.8
+//  date: 2024-05-11
 
 #import <UIKit/UIKit.h>
 
