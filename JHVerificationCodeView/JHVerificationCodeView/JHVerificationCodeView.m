@@ -55,7 +55,7 @@
 @property (strong,  nonatomic) UITextField              *textView;
 @property (nonatomic,  assign) BOOL                      inputFinish;
 @property (nonatomic,  assign) NSUInteger                inputFinishIndex;
-/// 存在光标 layer --- 2024-05-11 14:44:14
+/// 存放光标 layer --- 2024-05-11 14:44:14
 @property (nonatomic,  strong) NSMutableArray           *layerArray;
 @end
 
