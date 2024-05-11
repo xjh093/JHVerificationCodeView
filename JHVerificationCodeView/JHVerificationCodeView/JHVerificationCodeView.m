@@ -55,6 +55,8 @@
 @property (strong,  nonatomic) UITextField              *textView;
 @property (nonatomic,  assign) BOOL                      inputFinish;
 @property (nonatomic,  assign) NSUInteger                inputFinishIndex;
+/// 存在光标 layer --- 2024-05-11 14:44:14
+@property (nonatomic,  strong) NSMutableArray           *layerArray;
 @end
 
 @implementation JHVerificationCodeView
@@ -79,6 +81,8 @@
         _config.inputBoxWidth > frame.size.width) {
         return;
     }
+    
+    _layerArray = @[].mutableCopy;
     
     //优先考虑 inputBoxWidth
     CGFloat inputBoxSpacing = _config.inputBoxSpacing;
@@ -149,6 +153,8 @@
                     if (i != 0) {
                         layer.hidden = YES;
                     }
+                    
+                    [_layerArray addObject:layer];
                     layer;
                 })];
             }
@@ -221,9 +227,8 @@
 
 - (void)xx_didBecomeActive{
     // restart Flicker Animation
-    if (_config.showFlickerAnimation && _textView.text.length < self.subviews.count) {
-        UITextField *textField = self.subviews[_textView.text.length];
-        CALayer *layer = textField.layer.sublayers[0];
+    if (_config.showFlickerAnimation && _textView.text.length < _layerArray.count) {
+        CALayer *layer = _layerArray[_textView.text.length];
         [layer removeAnimationForKey:kFlickerAnimation];
         [layer addAnimation:[self xx_alphaAnimation] forKey:kFlickerAnimation];
     }
@@ -294,8 +299,8 @@
         if (_config.inputBoxColor) {
             textField.layer.borderColor = _config.inputBoxColor.CGColor;
         }
-        if (_config.showFlickerAnimation) {
-            CALayer *layer = textField.layer.sublayers[0];
+        if (_config.showFlickerAnimation && _layerArray.count > i) {
+            CALayer *layer = _layerArray[i];
             layer.hidden = YES;
             [layer removeAnimationForKey:kFlickerAnimation];
         }
@@ -308,9 +313,8 @@
 
 - (void)xx_flickerAnimation:(NSString *)text
 {
-    if (_config.showFlickerAnimation && text.length < self.subviews.count) {
-        UITextField *textField = self.subviews[text.length];
-        CALayer *layer = textField.layer.sublayers[0];
+    if (_config.showFlickerAnimation && text.length < _layerArray.count) {
+        CALayer *layer = _layerArray[text.length];
         layer.hidden = NO;
         [layer addAnimation:[self xx_alphaAnimation] forKey:kFlickerAnimation];
     }
