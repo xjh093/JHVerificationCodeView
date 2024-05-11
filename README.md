@@ -6,7 +6,9 @@ A single authentication code input box
 
 # Version
 Latest release version: 
-- [1.3.7](https://github.com/xjh093/JHVerificationCodeView/releases)
+- [1.3.7](https://github.com/xjh093/JHVerificationCodeView/releases)  ❌ out of date!
+
+- download master version for use. (2024-05-11 15:06:24)
 
 Swift version:
 - [JHVerifyCodeView](https://github.com/xjh093/JHVerifyCodeView)
